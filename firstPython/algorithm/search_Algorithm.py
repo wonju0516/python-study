@@ -59,3 +59,22 @@ def binary_search1(an_iterable, target):
     if index < len(an_iterable) and an_iterable[index] == target:
         return True
     return False
+
+
+# * 문자 탐색
+# * 파이썬에 내장된 ord() 함수를 이용해 문자의 ASCII 값을 알 수 있음
+print(ord("A"))  # 65
+
+# ? 알파벳 순서로 정렬된 단어 리스트에 원하는 단어가 포함되어 있는지 확인하는 이진 탐색 알고리즘을 작성해보기
+# from bisect import bisect_left
+animal_list = ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe", "horse"]
+
+
+def binary_search2(animal_list, n):
+    index2 = bisect_left(animal_list, n)
+    if index2 < len(animal_list) and animal_list[index2] == n:
+        return True
+    return False
+
+
+print(binary_search2(animal_list, "elephant"))
