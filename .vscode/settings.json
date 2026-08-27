@@ -1,5 +1,6 @@
 {
   "code-runner.runInTerminal": true,
+  "code-runner.ignoreSelection": true,
   "gitlens.currentLine.enabled": false,
   "gitlens.hovers.enabled": false,
   "gitlens.codeLens.enabled": false,
