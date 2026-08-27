@@ -71,7 +71,9 @@ def merge_sort(a_list):
                 a_list[alist_ind] = right_half[right_ind]
                 right_ind += 1
             alist_ind += 1
+        # ? 이 반복문이 멈추는 순간 -> 왼쪽이든 오른쪽이든 한쪽이라도 다 써버리면 멈추게 됨
 
+        # ! 이때 이 두 개의 반복문은 한쪽만 남았을 때 처리하는 방식
         while left_ind < len(left_half):
             a_list[alist_ind] = left_half[left_ind]
             left_ind += 1
@@ -81,3 +83,30 @@ def merge_sort(a_list):
             a_list[alist_ind] = right_half[right_ind]
             right_ind += 1
             alist_ind += 1
+
+
+# * 파이썬의 정렬 알고리즘
+# * 파이썬에는 sorted와 sort, 두 가지의 정렬 함수가 있다. -> 병합 정렬과 삽입 정렬을 조합한 하이브리드 정렬 알고리즘도 사용 (Timsort)
+
+# ! sorted는 파이썬이 데이터를 서로 비교할 수만 있다면 어떤 데이터든 정렬할 수 있음
+a_list = [1, 8, 10, 33, 4, 103]
+print(sorted(a_list))
+
+# ? 이런식으로 알파벳 순으로 정렬하거나 정수를 오름차순으로 정렬 -? 일단은 default는 오름차순
+b_list = ["Guido van Rossum", "James Gosling", "Bredan Eich", "Yukihiro Matsumoto"]
+print(sorted(b_list))
+
+# ? sorted 함수는 옵션으로 reverse를 매개변수로 받음
+# ? 내림차순으로 정렬하고 싶다면? -> reverse = True 매개변수를 전달하며 ㄴ됨
+print(sorted(a_list, reverse=True))
+
+# ? key라는 매개변수도 잇음 -> 각 요소에서 이 key 함수를 호출해 그 결과를 기준으로 정렬함
+# * ex -> key에 len 함수를 전달하면 문자열의 길이를 기준으로 정렬
+c_list = ["onehundered", "one", "three", "five", "seventy"]
+print(sorted(c_list, key=len))
+
+# ! sorted -> 새로운 리스트를 반환, 여러 곳에서 사용가능 (리스트, 튜플, 문자열, 세트, 딕셔너리)
+# ! sort -> 리스트에만 사용가능, 원래 리스트를 수정함 (반환 자체를 안함), 매개변수 넣는건 동일함!
+d_list = [5, 1, 290, 56, 98]
+d_list.sort()
+print(d_list)
