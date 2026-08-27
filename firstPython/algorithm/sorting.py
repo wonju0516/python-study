@@ -37,3 +37,47 @@ def insertion_sort(a_list):
             i = i - 1
         a_list[i] = value  # ! 여기서 나온 i는 0이거나 a_list[i]가 value보다 작은 아이
     return a_list
+
+
+# * merge sort
+# ! 원소 1개 남을 때까지 절반씩 계속 쪼갠다 (원소 1개 = 이미 정렬된 것으로 취급, 재귀 종료 조건)
+# ! 왼쪽을 완전히 다 합칠 때까지 끝낸 다음에야 오른쪽을 시작한다 (번갈아 하는 게 아님)
+# ! 마지막에 정렬 끝난 왼쪽 결과 + 오른쪽 결과를 합친다(merge)
+# ? merge: 두 조각의 맨 앞끼리 비교해서 더 작은 걸 꺼내고, 그 조각만 한 칸 전진 — 반복
+# ? 한쪽이 먼저 다 떨어지면, 남은 쪽은 이미 정렬돼 있으니 그대로 뒤에 붙이면 끝
+
+
+def merge_sort(a_list):
+    # ! 리스트를 서브 리스트로 분할 하는 부분
+    if len(a_list) > 1:
+        mid = len(a_list) // 2
+        left_half = a_list[:mid]
+        right_half = a_list[mid:]
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        # ! 리스트를 병합하는 부분
+        left_ind = 0  # * left_half의 인덱스를 저장
+        right_ind = 0  # * right_half의 인덱스를 저장
+        alist_ind = 0  # * a_list의 인덱스를 저장
+
+        # ! left_half의 첫번째 요소와 right_half의 첫번째 요소를 비교해 더 작은 숫자를 a_list 첫번째로 넣기
+        # ! 그러고 각각 인덱스값을 1씩 올려서 다음 차례 계산
+        while left_ind < len(left_half) and right_ind < len(right_half):
+            if left_half[left_ind] <= right_half[right_ind]:
+                a_list[alist_ind] = left_half[left_ind]
+                left_ind += 1
+            else:
+                a_list[alist_ind] = right_half[right_ind]
+                right_ind += 1
+            alist_ind += 1
+
+        while left_ind < len(left_half):
+            a_list[alist_ind] = left_half[left_ind]
+            left_ind += 1
+            alist_ind += 1
+
+        while right_ind < len(right_half):
+            a_list[alist_ind] = right_half[right_ind]
+            right_ind += 1
+            alist_ind += 1
