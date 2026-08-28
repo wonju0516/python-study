@@ -15,6 +15,12 @@ def is_anagram(s1, s2):
     else:
         return False
 
+    # ! sorted(s1) == sorted(s2) 자체가 이미 True/False 값을 만들어냄
+    # ! 그래서 그걸 다시 if로 감싸서 True면 True 반환, False면 False 반환 굳이 할 필요 없음
+    # ! 조건식이 곧 반환하고 싶은 값 그 자체라서, if/else 없이 조건식을 바로 return 하면 결과가 동일함
+
+    # * return sorted(s1) == sorted(s2)
+
 
 s1 = "Emperor Octavian"
 s2 = "Captain over Rome"
