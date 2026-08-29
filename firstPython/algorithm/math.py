@@ -70,3 +70,60 @@ def is_power(n):
     if n & (n - 1) == 0:
         return True
     return False
+
+
+# * 피즈버즈 (FizzBuzz)
+# ? 1부터 어떤 숫자까지 순서대로 출력하는데 (아래 조건들은 제외한것들은 그냥 숫자 그대로 출력)
+# ! 3의 배수면 숫자 대신 Fizz
+# ! 5의 배수면 숫자 대신 Buzz
+# ! 3과 5의 배수 둘다면 FizzBuzz
+
+# * 문제의 핵심은 나머지 연산자를 이용하는 것임 만약에 나머지 연산자가 0이면? 분자가 분모의 배수라는 뜻
+print(6 % 3)  # * 몫은 0이므로 6이 3의 배수임을 확인할 수 있음
+
+
+def fizzbuzz(n):
+    for i in range(1, n + 1):
+        if i % 3 == 0 and i % 5 == 0:
+            print("FizzBuzz")
+        elif i % 3 == 0:
+            print("Fizz")
+        elif i % 5 == 0:
+            print("Buzz")
+        else:
+            print(i)
+
+
+print("피즈버즈 문제")
+fizzbuzz(100)
+
+# * 최대공약수
+# ? 두 개 이상의 정수를 나누어떨어지게 하는 가장 큰 양의 정수를 말함
+# ? 최대공약수를 구하기 위해서 두 숫자중 작은 숫자까지 모든 숫자를 하나씩 반복해서 넣어봐야함
+
+# ! 여기서 문제는 0을 처리해야함 -> 두 정수 중 한쪽이라도 0이면 최대공약수는 0이 아닌 다른 정수임 + (음수를 처리할때도 정상처리 시키기!)
+# ! 0을 제대로 처리하지 못하는 경우를 경계 조건이라 함
+# ? 경계 조건 -> 개발자가 프로그램에  입력할 것이라고 예상하지 못했던 값을 가리킴
+
+
+def gcf(i1, i2):
+    if i1 < 0 or i2 < 0:
+        raise ValueError("Numbers must be positive")
+    if i1 == 0:
+        return i2
+    if i2 == 0:
+        return i1
+
+    if i1 > i2:
+        smaller = i2
+    else:
+        smaller = i1
+
+    for divisor in range(1, smaller + 1):
+        if (i1 % divisor == 0) and (i2 % divisor == 0):
+            gcf = divisor
+
+    return gcf
+
+
+print(gcf(-1, 20))
