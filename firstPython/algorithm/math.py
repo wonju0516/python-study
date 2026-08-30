@@ -127,3 +127,83 @@ def gcf(i1, i2):
 
 
 print(gcf(-1, 20))
+
+# * 유클리드 알고리즘 (Euclid's Algorithm)
+# ? 이 알고리즘을 활용한 최대공약수를 더 효율적으로 구할 수 있음
+# ? 큰 수를 작은수로 나눈 나머지를 구하고, 그 작은 수와 나머지로 또 나누기를 반복한다.
+# ? 나머지가 0이 되면, 그 직전에 나눴던 수가 최대공약수다
+
+
+def gcf(x, y):
+    while y != 0:
+        x, y = y, x % y
+    return x
+
+
+print(gcf(48, 18))
+
+# * 파이썬 내장 함수로도 최대공약수를 구할 수 있음
+# ! import math -> math 모듈을 가져오는 문법 (이 파일 이름도 math.py지만, math는 파이썬에 내장된(built-in) 모듈이라 안 겹침)
+# ! math.gcd(a, b) -> 유클리드 알고리즘을 내부적으로 사용해서 최대공약수를 바로 계산해줌
+import math
+
+print(math.gcd(48, 18))  # 6, gcd -> 최대공약수 (greatest common divisor)
+
+# * 소수
+# ? 자기 자신과 1로만 나누어떨어지는 양의 정수
+
+
+def is_prime(n):
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+
+# ! n-1이 아니라 n의 제곱근에서 루프를 종료하도록 바꾸면 알고리즘을 개선할 수 있음
+# import math
+# * n의 약수는 항상 "작은 약수 x 큰 약수 = n" 형태의 짝으로 나온다
+# * 예) 35 = 1x35, 5x7 -> 짝을 작은 순서로 줄 세우면 [1, 5 | 7, 35]
+# * 이 짝들은 항상 sqrt(n)을 기준으로 대칭인 위치에 있다
+# * (작은 쪽 약수는 sqrt(n) 이하, 큰 쪽 약수는 sqrt(n) 이상에 위치함)
+# * 예) sqrt(35) ≈ 5.9 -> 작은 쪽 약수 5는 5.9보다 작고, 큰 쪽 약수 7은 5.9보다 큼
+# ? 그래서 작은 쪽 약수(2 ~ sqrt(n))만 다 확인해보면,
+# ? 그 짝인 큰 쪽 약수는 자동으로 같이 밝혀지므로 굳이 따로 확인할 필요가 없다
+# ? (예: 35 % 5 == 0을 확인하는 순간, 35/5=7도 약수라는 게 이미 밝혀짐)
+def is_prime1(n):
+    for i in range(
+        2, int(math.sqrt(n)) + 1
+    ):  # ! math.sqrt() -> 제곱곱을 계산해줌 math.sqrt(9) -> 3.0
+        if n % i == 0:
+            return False
+    return True
+
+
+def find_primes(n):
+    return [i for i in range(2, n + 1) if is_prime1(i)]
+
+
+# * 소수 찾기 (에라토스테네스의 체)
+def sieve(n):
+    is_prime_list = (
+        [True] * (n + 1)
+    )  # ? 저 리스트에 True를 n + 1 반복해서 리스트로 만들어라 (리스트에서 * 그만큼 반복)
+    # ! n+1인 이유: 인덱스가 0부터 시작하므로, n번 인덱스까지 포함하려면 n+1개의 자리가 필요함
+    # ! 초기값 True: 아직 아무것도 안 걸러냈으니 "일단 전부 소수"라고 가정해두는 것
+
+    is_prime_list[0] = is_prime_list[1] = (
+        False  # ? 일단 0번 인덱스도 False, 1번 인덱스도 False로 초기화
+    )
+
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if is_prime_list[i]:  # ? is_prime_list[i]가 True면(i가 아직 소수로 남아있으면) 밑에 꺼 쓰셈
+            for multiple in range(
+                i * i, n + 1, i
+            ):  # ? range(시작, 끝, 간격) -> 이 문장은 그 소수로 나온애의 배수이면 False로 바꾼다는 의미
+                is_prime_list[multiple] = False
+
+    return [i for i, prime in enumerate(is_prime_list) if prime]
+
+
+# ! enumerate ->리스트를 돌면서 인덱스 번호랑, 값을 동시에 꺼내주는 함수
+# ! i -> 인덱스, prime -> 소수인지 아닌지 알려줌 (True)
