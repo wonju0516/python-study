@@ -1,5 +1,31 @@
 # python_basics
-import pandas
 
-print(pandas.__version__)
-print("hello world!!")
+print("Hello World")
+
+print("Hello" + " " + "World")  # * 문자열이 여러개 연결되는건 문제가없음
+
+print({"name": "Mok", "age": 38})  # * 딕셔너리도 출력 가능
+
+print([1, 2, 3])  # * list도 가능
+
+print((1, 2, 3))  # * 튜플도 가능
+
+print(3.14)
+print(True)  # * boolean도 출력 가능
+
+# * print()에 값을 콤마(,)로 나열해서 넘기는 것도 됨 ("Hello" + " " + "World"처럼 +로 합치는 것과는 다른 방식)
+# ! +는 문자열끼리 미리 하나로 합친 뒤 그 결과 "한 개"를 출력하는 것
+# ! 콤마는 값 여러 개를 각각 print()에 넘기고, print()가 그 값들 사이를 자동으로 이어서 출력해주는 것
+# ? 그래서 콤마로 넘기면 숫자, 리스트 등 문자열이 아닌 값도 안 바꾸고 그대로 넘길 수 있음 (+는 문자열끼리만 가능)
+print("age", 38)  # ? age 38  (콤마는 문자열이 아닌 값(38)도 자동으로 처리해줌)
+
+# * print()가 콤마로 받은 값들을 이어붙일 때 쓰는 옵션들 (sep, end)
+# ? sep -> 값들 "사이"에 넣을 구분자, 기본값은 공백(" ")
+# ? end -> 출력이 다 끝난 "맨 뒤"에 붙일 문자, 기본값은 줄바꿈("\n")
+print(
+    "home", "user", "documents", sep="/"
+)  # ? home/user/documents (구분자를 "/"로 바꿈)
+print("hi", end="!! ")  # ? "hi!! " 출력하고 줄바꿈을 안 함(기본 "\n" 대신 "!! "를 붙임)
+print(
+    "next line은 없음"
+)  # ? 위 end="!! " 때문에 줄바꿈이 없었으므로 이 줄이 바로 이어서 출력됨
