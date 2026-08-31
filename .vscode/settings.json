@@ -12,5 +12,6 @@
       "source.fixAll.ruff": "explicit",
       "source.organizeImports.ruff": "explicit"
     }
-  }
+  },
+  "python-envs.defaultEnvManager": "ms-python.python:pyenv"
 }
