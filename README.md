@@ -1,6 +1,6 @@
-# algo-basics
+# python-study
 
-알고리즘 / 자료구조 기초 공부 기록용 저장소입니다.
+알고리즘 / 자료구조 / 파이썬 기초 문법 공부 기록용 저장소입니다.
 
 ## 폴더 구조
 
@@ -13,8 +13,10 @@ firstPython/
 │   ├── search_Algorithm.py # 탐색 알고리즘
 │   ├── sorting.py          # 정렬 알고리즘
 │   └── string_algorithm.py # 문자열 알고리즘 (애너그램, 팰린드롬, 시저 암호)
-└── dataStructure/
-    └── array.py            # 자료구조 (준비 중)
+├── dataStructure/
+│   └── array.py            # 자료구조 (준비 중)
+└── python_basics/
+    └── basics.py           # 강의의 일반 파이썬 문법 정리 (준비 중)
 ```
 
 ## 재귀 (Recursion)
