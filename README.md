@@ -16,7 +16,7 @@ firstPython/
 ├── dataStructure/
 │   └── array.py            # 자료구조 (준비 중)
 └── python_basics/
-    └── basics.py           # 강의의 일반 파이썬 문법 정리 (준비 중)
+    └── print.py            # print() 함수 사용법 (구분자, 콤마 출력, sep/end 옵션)
 ```
 
 ## 재귀 (Recursion)
