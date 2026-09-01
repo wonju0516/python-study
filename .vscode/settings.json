@@ -1,17 +1,3 @@
 {
-  "code-runner.runInTerminal": true,
-  "code-runner.ignoreSelection": true,
-  "gitlens.currentLine.enabled": false,
-  "gitlens.hovers.enabled": false,
-  "gitlens.codeLens.enabled": false,
-  "gitlens.statusBar.enabled": false,
-  "[python]": {
-    "editor.defaultFormatter": "charliermarsh.ruff",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.ruff": "explicit",
-      "source.organizeImports.ruff": "explicit"
-    }
-  },
   "python-envs.defaultEnvManager": "ms-python.python:system"
 }
