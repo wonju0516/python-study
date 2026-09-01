@@ -16,7 +16,15 @@ firstPython/
 ├── dataStructure/
 │   └── array.py            # 자료구조 (준비 중)
 └── python_basics/
-    └── print.py            # print() 함수 사용법 (구분자, 콤마 출력, sep/end 옵션)
+    ├── playground.ipynb    # 라이브러리 설치/실행 테스트용 노트북
+    └── io_condition/       # 섹션 3: 입출력, 조건절
+        ├── print.py                    # print() 함수 사용법 (구분자, 콤마 출력, sep/end 옵션)
+        ├── input.py                    # input() 사용법
+        ├── f-string.py                 # 문자열 포맷팅 (%, .format(), f-string 비교)
+        ├── primitive_data_type.py      # 기본 데이터 타입 (int, float, bool, str)
+        ├── mathmatical_operation.py    # 사칙연산, 몫/나머지, 거듭제곱
+        ├── conditional-expression.py   # 조건문 (if/elif/else, 중첩 if)
+        └── logical-operator.py         # 논리 연산자 (준비 중)
 ```
 
 ## 재귀 (Recursion)
