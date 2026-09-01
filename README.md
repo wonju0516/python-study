@@ -26,11 +26,14 @@ firstPython/
         ├── primitive_data_type.py
         ├── mathmatical_operation.py
         ├── conditional-expression.py
-        └── logical-operator.py
+        ├── logical-operator.py
+        ├── Randomization.py
+        ├── mok_module.py
+        └── coin.py
 ```
 
 ## 폴더별 정리
 
 - [algorithm/](firstPython/algorithm/README.md) — 재귀, 탐색, 정렬, 문자열, 비트 연산, 수학 알고리즘
 - [dataStructure/](firstPython/dataStructure/README.md) — 자료구조 (준비 중)
-- [python_basics/io_condition/](firstPython/python_basics/io_condition/README.md) — print/input, 문자열 포맷팅, 기본 데이터 타입, 사칙연산, 조건문
+- [python_basics/io_condition/](firstPython/python_basics/io_condition/README.md) — print/input, 문자열 포맷팅, 기본 데이터 타입, 사칙연산, 조건문, 논리 연산자, random 모듈, 커스텀 모듈

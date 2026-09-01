@@ -77,4 +77,32 @@ if my_money > 0:
 
 ## 논리 연산자 (Logical Operator)
 
-준비 중.
+| 연산자 | 의미 |
+|---|---|
+| `A and B` | 두 조건 모두 참이어야 `True` |
+| `X or Y` | 둘 중 하나라도 참이면 `True` |
+| `not E` | 참/거짓을 뒤집음 |
+
+- `isinstance(값, 타입)`: 값이 특정 타입인지 확인하는 내장 함수. `isinstance(10, int)` → `True`, 타입을 튜플로 여러 개 넘기면(`isinstance(10, (int, float))`) 그중 하나라도 맞으면 `True`
+- 조건문에서 `and`와 함께 자주 씀 — 값이 특정 타입인지 먼저 확인한 뒤에만 다음 조건(비교 연산 등)을 검사해서, 타입이 안 맞을 때 에러 나는 걸 방지 (`isinstance(value, int) and value > 5`)
+
+## random 모듈
+
+| 함수 | 하는 일 |
+|---|---|
+| `random.randint(a, b)` | a부터 b까지(양 끝 포함) 정수 하나 랜덤 |
+| `random.random()` | 0.0 이상 1.0 미만 실수 하나 랜덤 |
+| `random.randrange(a, b)` | `range(a, b)`처럼 b는 제외하고 랜덤 정수 |
+| `random.uniform(a, b)` | a부터 b 사이 실수 랜덤 |
+| `random.choice(리스트)` | 리스트에서 원소 하나 랜덤으로 뽑기 |
+| `random.sample(리스트, n)` | 리스트에서 중복 없이 n개 랜덤으로 뽑기 |
+| `random.shuffle(리스트)` | 리스트 순서를 그 자리에서 랜덤으로 섞음 (반환값 없음, 원본 변경) |
+
+- `randint(1, 10)`은 10을 **포함**, `randrange(1, 10)`은 10을 **제외** — 헷갈리기 쉬운 부분
+- `choice`는 하나만, `sample`은 여러 개를 중복 없이 뽑음 (로또 번호 뽑기 같은 상황엔 `sample`)
+- 활용 예: 0~10 사이 랜덤 정수를 짝/홀로 나눠서 동전 앞뒤(head/tail) 시뮬레이션하기 (`coin.py`)
+
+## 커스텀 모듈 만들기
+
+- 파이썬 파일(`.py`) 하나가 그 자체로 하나의 모듈. 같은 폴더에 `mok_module.py`처럼 파일을 만들고 그 안에 변수/함수를 정의하면, 다른 파일에서 `import mok_module` 후 `mok_module.변수명`으로 가져다 쓸 수 있음
+- `random`, `math`처럼 파이썬에 내장된 모듈이 아니라, 직접 만든 파일도 똑같은 방식(`import`)으로 불러올 수 있다는 걸 보여주는 예제
