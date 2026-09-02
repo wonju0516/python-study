@@ -30,8 +30,6 @@ print(countries.pop(0))  # * 인덱스를 넣으면 그 자리 삭제
 print(countries)
 
 
-# --- 코테에서 append / insert / pop 다음으로 자주 쓰는 것들 ---
-
 nums = [3, 1, 4, 1, 5, 9, 2]
 
 # * len(리스트) -> 길이 (거의 모든 문제에 나옴)
@@ -81,9 +79,6 @@ print(original)  # [2, 1, 3]
 scores = [10, 40, 20, 30]
 print(min(scores), max(scores), sum(scores))
 
-# * enumerate -> (인덱스, 값)을 같이 꺼낼 때
-for i, n in enumerate(scores):
-    print(i, n)
 
 # * join -> 문자열 리스트를 하나로 합침 (문자열 문제에 자주 나옴)
 words = ["a", "b", "c"]
