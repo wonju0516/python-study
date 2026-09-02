@@ -82,7 +82,7 @@ print(list(zip(movie_list, ratings_list)))
 # * 중복 요소 찾기
 # ! set를 활용하기! -> 중복을 허용하지 않고, 순서가 없는 값들의 집합임
 a_set = set()
-a_set.add("Kanye West")
+a_set.add("Kanye West")  # * .add로 추가하기
 a_set.add("Kendall Jenner")
 a_set.add("Justin Bieber")
 print(a_set)
@@ -157,6 +157,7 @@ print(new_list)
 
 
 # * 음이 아닌 정수로 구성되어 있는 배열 an_array에서 짝수만 추출한 배열과 홀수만 추출한 배열을 만들어보세요
+
 
 # * append(값) / insert(인덱스, 값) -> 리스트 "크기를 늘리면서" 새 값을 넣는 것
 # ? append는 맨 뒤에 추가, insert는 원하는 인덱스에 끼워넣기 (그 자리에 있던 값은 뒤로 밀림)
