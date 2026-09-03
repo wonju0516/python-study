@@ -84,3 +84,16 @@ print(min(scores), max(scores), sum(scores))
 words = ["a", "b", "c"]
 print("".join(words))  # abc
 print("-".join(words))  # a-b-c
+
+# * Errors from list
+alphabets = ["a", "b", "c"]
+print(len(alphabets))  # ? len -> 3임
+# print(alphabets[3]) # ! 오류 발생 -> IndexError라고 나옴 -> 범위를 벗어낫다고 나옴
+
+## * netsted list -> 리스트 안에 리스트가 들어가 있다 (중첩 리스트)
+alphabets = [["a", "b"], "c"]
+print(alphabets)
+print(alphabets[0])  # * ['a','b']
+print(alphabets[0][0])  # * a
+print(alphabets[0][1])  # * b
+print(alphabets[1])
