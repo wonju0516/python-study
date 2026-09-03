@@ -63,3 +63,30 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
 [v for v in list1 if v in list2]
 ```
 `list1`을 돌면서(`for v in list1`), `list2`에도 있는 값만 골라서(`if v in list2`) 새 리스트에 담음 → 두 리스트의 교집합. `set`의 `intersection()`을 쓰면 중복 제거까지 되면서 더 빠르게 구할 수도 있음.
+
+## 클래스(class) 기초 — `__init__` / `self` / `__str__`
+
+- `__init__(self, ...)`: 객체(인스턴스)를 만들 때 초기 데이터를 설정하고 속성을 부여하기 위해 사용, 객체 생성 시점에 자동 실행
+- `self`: 지금 만들어지는(다뤄지는) 그 객체 자기 자신을 가리키는 참조
+- `__str__(self)`: 객체를 사람이 읽기 좋은 문자열로 표현하기 위해 사용, `print()`/`str()` 호출 시점에 자동 실행 (없으면 `<__main__.클래스이름 object at 0x...>`가 기본 출력됨)
+
+## 연결 리스트 (Linked List)
+
+- **노드(Node)**: 값(`data`)과 다음 노드를 가리키는 포인터(`next`)로 이루어진 단위. 노드들을 `next`로 줄줄이 이어붙인 것이 "노드의 체인"
+- **head / tail**: head는 첫 번째 노드를 가리키는 참조, tail은 마지막 노드(그 노드의 `next`가 `None`)
+- 배열과 달리 인덱스가 없어서 **임의 접근(random access)이 불가능** — 원하는 위치로 바로 점프 못 하고, head부터 `next`를 하나씩 따라가야만 함(O(n))
+- 대신 삽입/삭제 시 다른 요소를 밀어낼 필요 없이 **포인터 2개만 바꾸면 됨**(O(1))
+- 종류: 단일(다음 포인터만) / 이중(다음+이전 포인터) / 환형(마지막 노드가 첫 노드를 다시 가리킴)
+- 시간복잡도: 접근·탐색 O(n) vs 삽입·삭제 O(1)
+
+| 메서드 | 하는 일 |
+|---|---|
+| `append(data)` | 맨 뒤에 새 노드 추가. head 없으면 새 노드를 head로, 있으면 tail까지 이동 후 연결 |
+| `search(target)` | head부터 순회하며 값이 있는지 확인 |
+| `remove(target)` | 대상이 head면 head를 다음 노드로 교체, 아니면 `previous`/`current` 두 포인터로 순회하며 찾으면 `previous.next = current.next`로 건너뛰게 연결 (찾자마자 `return` 안 하면 중복값일 때 여러 개 지워지는 버그 생김) |
+| `reverse_list()` | `previous`/`current`/`next` 세 포인터로 각 노드의 화살표 방향을 반대로 뒤집음, 마지막엔 `previous`가 새 head (끝나는 시점엔 `current`가 `None`이라 `previous`를 써야 함) |
+| `detect_cycle()` | 토끼와 거북이 알고리즘: `slow`(한 칸), `fast`(두 칸)를 동시에 이동시켜 둘이 같은 노드(`is`로 비교, 값이 아니라 객체 자체가 같은지)에서 만나면 사이클 있음. `try`/`except AttributeError`로 "끝(`None`)까지 갔다"를 사이클 없음으로 처리 |
+
+**`collections.deque`**: 파이썬 내장 자료구조로, 내부가 연결 리스트 방식이라 양쪽 끝(`append`/`appendleft`, `pop`/`popleft`) 모두 O(1). 이미 `__str__`이 구현돼있어 `print(d)`만 해도 내용이 보임(직접 만든 클래스와 다른 점). `maxlen`을 지정하면 꽉 찼을 때 오래된 값이 자동으로 밀려나 원형 큐와 비슷하게 동작.
+
+자세한 예제는 [linked_list.py](linked_list.py) 참고.
