@@ -16,3 +16,22 @@ def is_prime_number(num: int):
 
 
 is_prime_number(5)
+
+
+def is_prime_number2(num: int):
+    if num > 1:
+        is_divisible = False
+        for n in range(2, num):
+            if num % n == 0:
+                print(f"{num} can be cleanly divided by {n}.")
+                is_divisible = True
+                break
+        if is_divisible:
+            print("Snap! it is not the prime number")
+        else:
+            print(f"Congrat! {num} is a prime number")
+    else:
+        print(f"{num} is not the prime number")
+
+
+is_prime_number2(6)
