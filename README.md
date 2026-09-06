@@ -36,17 +36,21 @@ firstPython/
     │   ├── dictionaries.py         # 딕셔너리 기초 (items, keys, values, in)
     │   ├── grading_program.py      # 언제 함수로 뽑아야 하는지
     │   └── nesting.py              # 다단계 중첩 리스트/딕셔너리, 오버라이트 개념
-    └── io_condition/       # → python_basics/io_condition/README.md (섹션 3: 입출력, 조건절)
-        ├── print.py
-        ├── input.py
-        ├── f-string.py
-        ├── primitive_data_type.py
-        ├── mathmatical_operation.py
-        ├── conditional-expression.py
-        ├── logical-operator.py
-        ├── Randomization.py
-        ├── mok_module.py
-        └── coin.py
+    ├── io_condition/       # → python_basics/io_condition/README.md (섹션 3: 입출력, 조건절)
+    │   ├── print.py
+    │   ├── input.py
+    │   ├── f-string.py
+    │   ├── primitive_data_type.py
+    │   ├── mathmatical_operation.py
+    │   ├── conditional-expression.py
+    │   ├── logical-operator.py
+    │   ├── Randomization.py
+    │   ├── mok_module.py
+    │   └── coin.py
+    └── python_internals/   # → python_basics/python_internals/README.md (섹션 5: 초심자가 꼭 알아야할 점)
+        ├── copy_deep_shallow.py  # 얕은 복사 vs 깊은 복사, compound object
+        ├── scope.py               # 지역/전역/enclosing 스코프, namespace, LEGB, global/nonlocal
+        └── errors.py              # 코드 짧게 줄이는 better solution 모음, sort vs sorted
 ```
 
 ## 폴더별 정리
@@ -55,3 +59,4 @@ firstPython/
 - [datastructure/](firstPython/datastructure/README.md) — 배열(리스트)/연결 리스트/스택 개념, set을 활용한 중복/교집합 찾기, 연결 리스트 삽입·삭제·뒤집기·사이클 탐지, 스택 push/pop O(1) 원리, MinStack/MaxStack, 괄호 짝 검사
 - [python_basics/loop_function/](firstPython/python_basics/loop_function/README.md) — 리스트/딕셔너리 기초, for-in/range/enumerate, FizzBuzz, while/이터레이터, 함수(타입힌트·키워드인자·반환값·언제 뽑아야 하는지), 소수 판별, 랜덤 비밀번호 생성기, 행맨, 다단계 중첩과 오버라이트
 - [python_basics/io_condition/](firstPython/python_basics/io_condition/README.md) — print/input, 문자열 포맷팅, 기본 데이터 타입, 사칙연산, 조건문, 논리 연산자, random 모듈, 커스텀 모듈
+- [python_basics/python_internals/](firstPython/python_basics/python_internals/README.md) — 얕은 복사/깊은 복사와 compound object, 스코프(LEGB, global/nonlocal), 코드를 줄이는 better solution 모음
