@@ -54,9 +54,10 @@ firstPython/
     │   ├── scope.py               # 지역/전역/enclosing 스코프, namespace, LEGB, global/nonlocal
     │   └── errors.py              # 코드 짧게 줄이는 better solution 모음, sort vs sorted
     └── oop/                # → python_basics/oop/README.md (섹션 6: 객체지향)
-        ├── oop_turtle.py    # 클래스/객체/메소드 기초, turtle 라이브러리, from-import
-        ├── custom_class.py  # naming convention, 동적 속성 추가, 생성자(__init__)
-        └── pypi.py          # 외부 패키지(PrettyTable) 활용
+        ├── oop_turtle.py          # 클래스/객체/메소드 기초, turtle 라이브러리, from-import
+        ├── custom_class.py        # naming convention, 동적 속성 추가, 생성자(__init__), 파일 간 클래스 import
+        ├── pypi.py                # 외부 패키지(PrettyTable) 활용
+        └── built_in_data_types.py # list/dict/set/tuple 내장 자료형 비교
 ```
 
 ## 폴더별 정리
@@ -66,4 +67,4 @@ firstPython/
 - [python_basics/loop_function/](firstPython/python_basics/loop_function/README.md) — 리스트/딕셔너리 기초, for-in/range/enumerate, FizzBuzz, while/이터레이터, 함수(타입힌트·키워드인자·반환값·언제 뽑아야 하는지), 소수 판별, 랜덤 비밀번호 생성기, 행맨, 다단계 중첩과 오버라이트
 - [python_basics/io_condition/](firstPython/python_basics/io_condition/README.md) — print/input, 문자열 포맷팅, 기본 데이터 타입, 사칙연산, 조건문, 논리 연산자, random 모듈, 커스텀 모듈
 - [python_basics/python_internals/](firstPython/python_basics/python_internals/README.md) — 얕은 복사/깊은 복사와 compound object, 스코프(LEGB, global/nonlocal), 코드를 줄이는 better solution 모음
-- [python_basics/oop/](firstPython/python_basics/oop/README.md) — 클래스/객체/메소드 기초, turtle 라이브러리, naming convention, 생성자(__init__), 외부 패키지(PrettyTable) 활용
+- [python_basics/oop/](firstPython/python_basics/oop/README.md) — 클래스/객체/메소드 기초, turtle 라이브러리, naming convention, 생성자(__init__), 외부 패키지(PrettyTable) 활용, list/dict/set/tuple 내장 자료형 비교

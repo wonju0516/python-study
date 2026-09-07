@@ -16,8 +16,18 @@
 - **생성자(constructor, `__init__`)**: 객체를 만드는 순간(`Car2(...)`) 자동으로 실행되는 함수. 매번 속성을 하나씩 즉석 추가하는 대신, 생성자에서 한 번에 정해두는 정석적인 방식
   - `__init__(self, color, engine_type)`의 `color`/`engine_type`은 그 함수 안에서만 쓰이는 매개변수(임시 값)
   - `self.color = color`는 "이 객체(`self`)의 `color` 속성에, 방금 받은 매개변수 값을 영구 저장"하는 것 — 왼쪽(`self.color`)과 오른쪽(`color`)은 이름이 같아 보여도 역할이 다름
+- **다른 파일에서 클래스 가져오기**: `import car2`(모듈 전체, `car2.Car2(...)`로 접두어 필요) vs `from car2 import Car2`(그 이름만 콕 집어, 접두어 없이 `Car2(...)`) vs `from car2 import Car2 as c`(별명 지정, 이름이 길거나 겹칠 때 유용)
 
 ## 외부 패키지 활용 — PrettyTable (`pypi.py`)
 
 - `pip install prettytable`로 설치하는 외부 라이브러리, 표 형태로 데이터를 보기 좋게 출력해줌
 - `table.field_names`로 컬럼 이름 지정, `table.add_row([...])`로 행 추가, `print(table)`로 ASCII 표 형태 출력
+
+## 내장 자료형 — list/dict/set/tuple (`built_in_data_types.py`)
+
+- **list**: mutable, `.append()`(맨 뒤 추가), `리스트[i] = 값`(인덱스로 변경 가능)
+- **dict**: mutable, `딕셔너리[키] = 값`으로 추가와 변경을 둘 다 처리 — 그 키가 없으면 새로 추가, 있으면 값만 덮어씀 (문법은 동일). 한 키는 값을 하나만 가짐(여러 개 넣고 싶으면 값 자리에 리스트를 담아야 함). `append` 같은 메소드는 없음(순서 개념이 없어서)
+- **set**: 중복을 없애고 싶을 때 사용. 원소 자체는 못 바꾸지만(unchangeable) `add()`/`remove()`로 추가·제거는 가능. 인덱스 접근 불가
+  - `set((1, 2, 3))`처럼 이터러블을 넘겨 변환할 수도 있지만, 그냥 `{1, 2, 3}`(set 리터럴)로 쓰는 게 더 간결함 (ruff `C405` 경고 대상)
+  - 빈 set은 `{}`(dict로 해석됨)가 아니라 `set()`으로 만들어야 함
+- **tuple**: immutable, 인덱스 접근 가능, 생성 속도가 list보다 빠름. `list([])`/`dict({})`처럼 `tuple`도 자체 리터럴(`()`)이 있어서 `tuple()` 함수 호출이 필요 없음
