@@ -60,3 +60,23 @@ def two_sum(a_list, target):
 # ? 주어진 문자열에서 중복되는 단어를 모두 제거해 보세요.
 # ? 예를 들어 주어진 문자열이 I am a self-taught programmer looking for a job as a programmer.
 # ? I am a self-taught programmer looking for a job as a. 이렇게 반환해야함
+
+string_list = "I am a self-taught programmer lokking for a job as a programmer."
+
+string_list1 = string_list.split(" ")
+# ! .split()은 리스트를 반환함 -> .strip()은 문자열 전용 메소드라 리스트엔 못 씀 (.split(" ").strip(".") 하면 AttributeError)
+
+result = []  # * 정답
+seen = set()  # ! set을 만들때는 set()을 이렇게 해야 만들 수 있음
+for i in string_list1:
+    key = i.strip(".")
+    # ! strip -> 문자열 양 끝에서 지정한 문자를 제거하는 메소드 .strip() -> 얖뒤 공백 제거 .strip(".") -> 앞 뒤에 있는 . 제거
+    # * "programmer"와 "programmer."는 마침표 때문에 다른 문자열로 취급됨 -> 비교용으로만 마침표를 뗀 버전을 만듦
+    if key in seen:
+        pass
+    else:
+        result.append(i)  # * list
+        seen.add(key)  # * set
+
+print(" ".join(result))
+# ! ""(빈 문자열)이 아니라 " "(공백)으로 이어붙여야 단어 사이가 벌어짐
