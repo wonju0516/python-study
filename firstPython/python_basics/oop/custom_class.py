@@ -12,7 +12,7 @@ class Car1:
 
 tesla = Car1()
 # * 클래스가 빈 껍데기(pass)라도, 객체를 만든 뒤엔 속성을 즉석에서 자유롭게 추가할 수 있음
-tesla.color = "red"  # * 이 순간 tesla 객체에 color라는 속성이 새로 생김
+tesla.color = "red"  # * 이 순간 tesla 객체에 color라는 속성(property)이 새로 생김
 tesla.engine_type = "electric"
 
 print(tesla.color)
@@ -22,14 +22,46 @@ print(vars(tesla))  # * vars(객체) -> 객체의 __dict__와 동일, 속성들�
 
 # * 생성자(constructor) = __init__ -> 객체를 만드는 순간(Car2(...)) 자동으로 실행되는 함수
 # * Car1처럼 나중에 속성을 하나씩 즉석 추가하는 대신, 생성자에서 한 번에 속성을 다 정해놓는 방식
-class Car2:
-    def __init__(self, color, engine_type):
-        # * color, engine_type -> __init__이 넘겨받은 매개변수(파라미터), 이 함수 안에서만 쓰는 임시 값
-        # * self.color, self.engine_type -> 그 값을 "이 객체(self)의 속성"으로 저장하는 것
-        # ! 왼쪽(self.color)은 객체에 영구히 저장되는 값, 오른쪽(color)은 그냥 지금 받은 매개변수일 뿐
-        self.color = color
-        self.engine_type = engine_type
+# class Car2:
+#     def __init__(self, color, engine_type):
+#         # * color, engine_type -> __init__이 넘겨받은 매개변수(파라미터), 이 함수 안에서만 쓰는 임시 값
+#         # * self.color, self.engine_type -> 그 값을 "이 객체(self)의 속성"으로 저장하는 것
+#         # ! 왼쪽(self.color)은 객체에 영구히 저장되는 값, 오른쪽(color)은 그냥 지금 받은 매개변수일 뿐
+#         self.color = color
+#         self.engine_type = engine_type
+#         self.speed = 0
+#         self.is_start = False
 
+#     # * 메소드도 만들어보기
+#     def start_engine(self):
+#         self.speed = 0
+#         self.is_start = True
 
-tesla2 = Car2("green", "electric")
-print(tesla2.color)
+#     def speed_up(self, speed):
+#         self.speed += speed
+
+#     def speed_down(self, speed):
+#         self.speed -= speed
+
+# import car2  # * car2.py 모듈 전체를 가져옴 -> 쓸 때 car2.Car2(...)처럼 접두어 필요
+
+from car2 import Car2
+
+# * car2 모듈 중 Car2 클래스 하나만 콕 집어 가져옴 -> 접두어 없이 Car2(...) 바로 사용
+
+# from car2 import Car2 as c  # * as로 별명(alias) 지정 -> 이름이 길거나 겹칠 때 짧은/다른 이름으로 부를 수 있음
+
+# tesla2 = car2.Car2("green", "electric")  # * import car2로 가져왔을 때 쓰는 방식
+tesla2 = Car2("green", "electric")  # * from ... import Car2로 가져왔을 때 쓰는 방식
+# tesla2 = c("green", "electric")  # * as c로 별명 지정했을 때 쓰는 방식
+
+print(vars(tesla2))
+tesla2.start_engine()
+
+for i in range(5):
+    tesla2.speed_up(1)
+    print(tesla2.speed)
+
+for i in range(5):
+    tesla2.speed_down(1)
+    print(tesla2.speed)
