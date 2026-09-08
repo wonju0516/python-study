@@ -4,3 +4,4 @@ __pycache__/
 .vscode/*.log
 tempCodeRunnerFile*
 firstPython/python_basics/file_data_processing/WRITEME.txt
+firstPython/python_basics/file_data_processing/grade.csv
