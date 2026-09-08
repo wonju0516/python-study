@@ -53,13 +53,17 @@ firstPython/
     │   ├── copy_deep_shallow.py  # 얕은 복사 vs 깊은 복사, compound object
     │   ├── scope.py               # 지역/전역/enclosing 스코프, namespace, LEGB, global/nonlocal
     │   └── errors.py              # 코드 짧게 줄이는 better solution 모음, sort vs sorted
-    └── oop/                # → python_basics/oop/README.md (섹션 6: 객체지향)
-        ├── oop_turtle.py          # 클래스/객체/메소드 기초, turtle 라이브러리, from-import
-        ├── custom_class.py        # naming convention, 동적 속성 추가, 생성자(__init__), 파일 간 클래스 import
-        ├── pypi.py                # 외부 패키지(PrettyTable) 활용
-        ├── built_in_data_types.py # list/dict/set/tuple 내장 자료형 비교
-        ├── high_order_function.py # 고차함수, 일급 객체, 데코레이터
-        └── class_inheritance.py  # 상속, 오버라이딩, super(), 메소드 탐색 순서, id()
+    ├── oop/                # → python_basics/oop/README.md (섹션 6: 객체지향)
+    │   ├── oop_turtle.py          # 클래스/객체/메소드 기초, turtle 라이브러리, from-import
+    │   ├── custom_class.py        # naming convention, 동적 속성 추가, 생성자(__init__), 파일 간 클래스 import
+    │   ├── pypi.py                # 외부 패키지(PrettyTable) 활용
+    │   ├── built_in_data_types.py # list/dict/set/tuple 내장 자료형 비교
+    │   ├── high_order_function.py # 고차함수, 일급 객체, 데코레이터
+    │   └── class_inheritance.py   # 상속, 오버라이딩, super(), 메소드 탐색 순서, id()
+    └── file_data_processing/ # → python_basics/file_data_processing/README.md (섹션 7: 파일/데이터 처리)
+        ├── files.py               # open/close, with문, 모드(r/w/a), pathlib로 경로 고정, csv 모듈, pandas.read_csv
+        ├── README.txt             # files.py가 읽는 샘플 텍스트 파일
+        └── sample.csv             # files.py가 읽는 샘플 CSV (country/capital/continent)
 ```
 
 ## 폴더별 정리
@@ -70,3 +74,4 @@ firstPython/
 - [python_basics/io_condition/](firstPython/python_basics/io_condition/README.md) — print/input, 문자열 포맷팅, 기본 데이터 타입, 사칙연산, 조건문, 논리 연산자, random 모듈, 커스텀 모듈
 - [python_basics/python_internals/](firstPython/python_basics/python_internals/README.md) — 얕은 복사/깊은 복사와 compound object, 스코프(LEGB, global/nonlocal), 코드를 줄이는 better solution 모음
 - [python_basics/oop/](firstPython/python_basics/oop/README.md) — 클래스/객체/메소드 기초, turtle 라이브러리, naming convention, 생성자(__init__), 외부 패키지(PrettyTable) 활용, list/dict/set/tuple 내장 자료형 비교, 고차함수와 데코레이터, 상속·오버라이딩·super()·메소드 탐색 순서
+- [python_basics/file_data_processing/](firstPython/python_basics/file_data_processing/README.md) — 파일 열기/닫기, with문과 메모리 관리, 모드(r/w/a), 실행 위치에 따른 상대경로 문제와 pathlib 해결법, csv 모듈, pandas.read_csv, 가상환경과 pyenv 차이
