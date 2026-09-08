@@ -43,6 +43,30 @@
 - `데이터프레임["컬럼명"]`: 그 컬럼 하나만 시리즈(Series) 형태로 뽑아냄
 - `csv` 모듈은 한 줄씩 직접 다뤄야 하는 반면, pandas는 표 전체를 한 번에 다루고 필터링/집계 같은 데이터 분석 작업에 훨씬 유리함
 
+## DataFrame과 Series (`data_pandas.py`)
+
+- **DataFrame**: pandas의 핵심 자료구조. 2차원 표(행/열) 형태이고, 각 행/열에 이름(라벨)이 붙어있음. 크기를 자유롭게 바꿀 수 있고, 컬럼마다 다른 자료형을 가질 수 있음
+- **Series**: DataFrame의 컬럼 하나에 해당하는 자료구조 (`df["컬럼명"]`의 결과 타입). 1차원 배열이고 각 값에 인덱스가 붙음, 같은 컬럼 안 값들은 전부 같은 타입
+- **`sum(리스트)` vs `시리즈.sum()`**: `list`/`tuple`은 자기만의 `sum()` 메소드가 없어서 파이썬 내장 함수 `sum()`을 써야 함. pandas의 `Series`는 자체 `.sum()` 메소드를 갖고 있어서 `데이터.메소드()` 형태가 표준
+- **`df.컬럼명`**: `df["컬럼명"]`과 동일하게 컬럼에 접근하는 방법. 단, 컬럼명에 공백/특수문자가 있거나 DataFrame의 기존 메소드 이름과 겹치면 이 방식은 안 됨 → 그럴 땐 `df["컬럼명"]`만 가능
+- **불리언 인덱싱**: `df[df.컬럼 == 값]`처럼 조건을 넣으면, 그 조건이 True인 행만 걸러서 새 DataFrame을 반환함 (`df.컬럼 == 값` 자체는 행마다 True/False로 이루어진 Series)
+- **자주 쓰는 메소드**: `.head(n)`(위에서 n개), `.shape`((행,열) 개수), `.columns`(컬럼명 목록), `.sort_values("컬럼")`(정렬), `.value_counts()`(값별 개수), `.describe()`(통계 요약)
+- **`describe()`는 숫자/범주형에 따라 다르게 나옴**: 숫자 컬럼은 평균·표준편차·사분위수, 문자열(범주형) 컬럼은 `count`/`unique`/`top`/`freq`로 나옴. `df.describe(include="object")`를 쓰면 문자열 컬럼들을 한 번에 볼 수 있음
+
+## DataFrame 순회하기 (`iterate_pandas_dataframe.py`)
+
+- **`딕셔너리.items()`**: `(key, value)` 쌍으로 순회. `.items()` 없이 `for x in 딕셔너리`만 하면 key만 나옴
+- **`DataFrame.items()`는 딕셔너리랑 다름**: "행"이 아니라 **"컬럼"** 을 하나씩 돎 — `key`는 컬럼명, `value`는 그 컬럼 전체(Series). 컬럼 개수만큼만 반복됨
+- **`DataFrame.iterrows()`**: 진짜 "행" 단위로 순회. 반복마다 `(인덱스, 그 행의 Series)`를 돌려줌 — 행 개수만큼 반복됨, 한 행 안의 여러 컬럼 값을 동시에 쓰고 싶을 때 씀
+- **`row["컬럼명"]` vs `row.컬럼명`**: 둘 다 되지만, 실무에서는 대괄호 방식을 더 권장함 (컬럼명에 공백/특수문자가 있어도 항상 안전하게 동작하기 때문)
+
+## List/Dictionary Comprehension (`list_comprehension.py`, `dictionary_comprehension.py`)
+
+- **list comprehension(리스트 축약)**: `[표현식 for 변수 in 반복가능한것]` — 반복문으로 새 리스트를 만드는 코드를 한 줄로 줄이는 문법. 표현식은 "결과 리스트에 실제로 넣고 싶은 값"
+- **조건 붙이기**: `[표현식 for 변수 in 반복가능한것 if 조건]` — 조건은 원본 값 기준으로 먼저 판단되고, 통과한 것만 표현식이 적용됨 (변환 후 값으로 비교하는 게 아님)
+- **문자열도 순회 가능**: 문자열은 iterable이라 `[ch for ch in 문자열]`처럼 한 글자씩 리스트로 만들 수 있음
+- **dictionary comprehension**: `{key표현식: value표현식 for (key, value) in 딕셔너리.items() if 조건}` — 원리는 list comprehension과 같고, 대괄호 대신 중괄호에 `key: value` 쌍을 넣는 것만 다름
+
 ## 가상환경 vs pyenv — 왜 pandas가 안 잡힐 때가 있는지
 
 - **pyenv**: 파이썬 "버전" 자체를 관리하는 도구 (예: 3.14.7 고정)
