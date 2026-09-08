@@ -1,7 +1,7 @@
-country,capital,continent
-United States,WashingtonDC,North America
-South Korea,Seoul,East Asia
-Japan,Tokyo,East Asia
-China,Beijing,East Asia
-United Kingdom,London,Europe
-France,Paris,Europe
+country,capital,continent,population
+United States,WashingtonDC,North America,329500000
+South Korea,Seoul,East Asia,51780000
+Japan,Tokyo,East Asia,125800000
+China,Beijing,East Asia,1402000000
+United Kingdom,London,Europe,67220000
+France,Paris,Europe,67390000
