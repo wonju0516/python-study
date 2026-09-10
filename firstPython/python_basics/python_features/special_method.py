@@ -6,9 +6,14 @@ class Tesla:
         self.owner = owner
         self.color = color
 
-    # * __str__: print(객체) / str(객체) 할 때 보여줄 문자열을 정함
+    # * __str__: print(객체) / str(객체) 할 때 보여줄 문자열을 정함 (사용자용 표현)
     def __str__(self):
         return f"This is {self.color} color {self.owner}'s car"
+
+    # * __repr__: repr(객체) 할 때, 또는 __str__이 없을 때 print(객체)에서 쓰일 문자열 (개발자용 표현, 디버깅 목적)
+    # * 보통 "이 문자열을 eval()하면 똑같은 객체가 다시 만들어진다"는 형태로 작성하는 게 관례
+    def __repr__(self):
+        return f"Tesla(owner={self.owner!r}, color={self.color!r})"
 
     # * __len__: len(객체) 했을 때 반환할 값을 정함
     def __len__(self):
@@ -25,7 +30,8 @@ class Tesla:
 
 
 tesla = Tesla("Joon", "White")
-print(tesla)
+print(tesla)  # * __str__이 있으면 print()는 __str__ 결과를 씀
+print(repr(tesla))  # * repr()은 __str__이 있어도 항상 __repr__ 결과를 씀
 # del tesla
 
 tesla1 = Tesla("Aain", "White")
