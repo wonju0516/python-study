@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .vscode/*.log
 tempCodeRunnerFile*
+CLAUDE.md
 firstPython/python_basics/file_data_processing/WRITEME.txt
 firstPython/python_basics/file_data_processing/grade.csv
 firstPython/python_basics/file_data_processing/sample.txt
