@@ -134,6 +134,39 @@
 - `square = lambda num: num**2`처럼 변수에 담아 이름 붙여 쓸 수도 있지만, 진짜 쓰임새는 **`map`/`filter`처럼 "함수 자체를 인자로 넘겨야" 하는 상황**에서 `def`로 따로 이름 붙이기 귀찮은 한 줄짜리 함수를 그 자리에서 즉석으로 만들어 넘기는 것
 - `list(map(lambda num: num**2, number_list))`, `list(filter(lambda num: num % 2 == 0, number_list))`처럼 `map`/`filter`와 짝지어 쓰는 게 가장 흔한 패턴
 
+## collections 모듈 (`collections_python.py`)
+
+- **collections 모듈**: `list`/`dict`/`tuple`/`set` 기본 컬렉션만으로 부족한 상황을 위한 특화된 컬렉션 타입 모음
+- ! **주의**: 이 모듈과 이름이 겹치는 `collections.py` 같은 파일명을 쓰면, 그 폴더 안에서 `from collections import ...` 했을 때 표준 라이브러리 대신 자기 자신을 불러오는 충돌이 생김 (`array.py`와 같은 문제) — 그래서 파일명을 `collections_python.py`로 지음
+
+### Counter — 등장 횟수 세기
+
+- 리스트/문자열 안의 각 원소가 몇 번 나오는지 자동으로 세어주는 딕셔너리 (`dict`를 상속)
+- `Counter(리스트)` / `Counter(문자열)` / `Counter(단어리스트)` 등 순회 가능한 것이면 뭐든 넣을 수 있음
+- 출력 순서는 삽입 순서가 아니라 **등장 횟수 내림차순**
+- `most_common()`: `(원소, 횟수)` 튜플로 짝지어서, 횟수 많은 순서대로 담은 **리스트**를 반환 — 튜플 리스트를 순회할 땐 `for 원소, 횟수 in c.most_common():`처럼 바로 언패킹 가능
+
+### defaultdict — 없는 key여도 에러 안 남
+
+- 일반 `dict`는 없는 key에 접근하면 `KeyError` 발생. `defaultdict(팩토리함수)`는 없는 key에 접근하는 순간 그 팩토리 함수를 **인자 없이 호출**한 결과를 자동으로 채워 넣어줌
+- `defaultdict(lambda: 0)`처럼 직접 람다로 써도 되고, `defaultdict(int)`(결과 0), `defaultdict(list)`(결과 `[]`)처럼 내장 타입을 그대로 넘기는 것도 흔한 패턴
+- `dd["없는키"]`처럼 그냥 **읽기만 해도** 그 순간 key가 자동 생성된다는 점이 일반 dict와 다름
+
+### namedtuple — 이름으로도 접근되는 튜플
+
+- 일반 튜플은 인덱스로만 접근 가능해서(`t[1]`) 값이 뭘 의미하는지 코드만 봐선 알기 어려움
+- `namedtuple("타입이름", [필드명, ...])`: 지정한 필드를 가진 새로운 튜플 **타입**을 만들어 반환 (`int`, `str`처럼 새 자료형이 하나 생기는 것)
+- `namedtuple("Dog", ...)`처럼 넘기는 문자열은 "타입 내부에 저장되는 이름"이고, `Dog = namedtuple(...)`의 `Dog`는 그 결과를 담는 "변수 이름" — 서로 다른 자리라 이론상 다르게 지어도 되지만, 관례상 항상 똑같이 맞춰서 씀
+- 만들어진 타입으로 인스턴스를 찍어내면(`Dog(age=5, ...)`), 여전히 튜플이라 인덱스(`[0]`)로도, 이름(`.age`)으로도 둘 다 접근 가능
+
+### deque — 양쪽 끝 다 빠른 큐
+
+- "Double-Ended Queue"의 줄임말, **"덱"**이라고 읽음(데큐 아님). 이름처럼 양쪽 끝(앞/뒤) 모두에서 추가/삭제가 O(1)
+- 일반 `list`는 맨 뒤 추가/삭제만 O(1)이고 맨 앞은 나머지가 다 밀려서 O(n) — 앞쪽도 자주 건드릴 땐 `list`보다 `deque`가 유리
+- 메소드 4개: `append()`(뒤에 추가) / `appendleft()`(앞에 추가) / `pop()`(뒤에서 제거) / `popleft()`(앞에서 제거)
+- `deque`는 FIFO(큐)를 강제하는 자료구조가 아니라 **양쪽 다 자유롭게 쓸 수 있는 범용 구조** — `append`+`popleft` 조합이면 큐(FIFO)처럼, `append`+`pop` 조합이면 스택(LIFO)처럼 동작
+- **`maxlen` 옵션**: 꽉 찬 상태에서 새 값이 들어오면 **"방금 넣은 쪽의 반대쪽" 값이 자동으로 밀려남**. `append()`로 넣었다면 왼쪽이, `appendleft()`로 넣었다면 오른쪽이 밀림 — "먼저 들어온 값이 나간다(FIFO)"가 아니라 "삽입한 반대쪽이 밀린다"가 정확한 규칙이고, 계속 `append()`만 쓰는 경우에 한해 결과적으로 FIFO처럼 보이는 것뿐
+
 ## SMTP로 이메일 보내기 (`smtp_python.py`)
 
 - **SMTP(Simple Mail Transfer Protocol)**: 이메일을 보낼 때 쓰는 표준 프로토콜. `smtplib`은 파이썬에서 이 프로토콜로 이메일을 코드로 직접 보낼 수 있게 해주는 표준 라이브러리
