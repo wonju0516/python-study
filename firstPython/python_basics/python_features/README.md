@@ -167,6 +167,45 @@
 - `deque`는 FIFO(큐)를 강제하는 자료구조가 아니라 **양쪽 다 자유롭게 쓸 수 있는 범용 구조** — `append`+`popleft` 조합이면 큐(FIFO)처럼, `append`+`pop` 조합이면 스택(LIFO)처럼 동작
 - **`maxlen` 옵션**: 꽉 찬 상태에서 새 값이 들어오면 **"방금 넣은 쪽의 반대쪽" 값이 자동으로 밀려남**. `append()`로 넣었다면 왼쪽이, `appendleft()`로 넣었다면 오른쪽이 밀림 — "먼저 들어온 값이 나간다(FIFO)"가 아니라 "삽입한 반대쪽이 밀린다"가 정확한 규칙이고, 계속 `append()`만 쓰는 경우에 한해 결과적으로 FIFO처럼 보이는 것뿐
 
+## zip 압축/해제 — zipfile, shutil (`zip.py`)
+
+### `open()`의 `"w+"` 모드
+
+- `"w"`처럼 없으면 새로 만들고 있으면 덮어쓰되, 같은 파일 객체로 **쓰기+읽기 둘 다 가능**한 모드
+
+### `zipfile` — 파일을 하나씩 골라 압축
+
+- **`zipfile.ZipFile(경로, "w")`**: `open()`처럼 "zip 파일을 다루는 객체"를 만듦. `"w"`는 새 압축 상자를 만드는 모드, `"r"`은 이미 있는 zip을 읽는 모드
+- **`.write(파일, arcname=..., compress_type=...)`**: 그 상자 안에 파일 하나를 압축해서 담음
+  - `compress_type`: 압축 방식. `ZIP_DEFLATED`(용량 실제로 줄이는 진짜 압축) vs 기본값 `ZIP_STORED`(압축 아니고 그냥 담기만 함, 용량 그대로)
+  - `arcname`: zip **안에서** 쓸 이름/경로. **생략하면 실제 파일의 전체 경로가 그대로 zip 내부 폴더 구조로 저장돼버림** — 항상 `arcname="파일명"`처럼 짧게 지정할 것
+- **`.close()`**: 상자 뚜껑 닫기 — 저장 마무리
+- **`.extractall(폴더)`**: 상자 안 파일들을 전부 압축 해제해서 그 폴더에 풀어놓음
+
+```python
+comp_file = zipfile.ZipFile(BASE_DIR / "comp.zip", "w")
+comp_file.write(BASE_DIR / "readme1.txt", arcname="readme1.txt", compress_type=zipfile.ZIP_DEFLATED)
+comp_file.close()
+
+zip_obj = zipfile.ZipFile(BASE_DIR / "comp.zip", "r")
+zip_obj.extractall(BASE_DIR / "extracted")
+```
+
+### `shutil` — 폴더 통째로 압축
+
+- **`shutil`("shell utilities")**: zip 말고도 파일 복사/이동/삭제 등 파일 시스템 작업을 폭넓게 다루는 표준 라이브러리
+- **`shutil.make_archive(결과이름, 형식, 압축할폴더)`**: 지정한 폴더를 통째로 압축 — `zipfile`처럼 파일을 하나씩 안 골라도 됨. 폴더 기준 상대 경로로 저장되므로 `zipfile.write()`와 달리 `arcname` 문제가 없음
+  - 두 번째 인자(`"zip"`)는 **결과물을 어떤 형식으로 만들지**(출력 형식)
+- **`shutil.unpack_archive(zip경로, 풀위치, 형식)`**: 압축 해제
+  - 세 번째 인자(`"zip"`)는 **지금 주는 이 파일이 무슨 형식인지**(입력 형식) — 생략하면 확장자로 자동 추측하지만, 명시하면 더 안전하고 명확함. `make_archive`와 인자 순서가 다르니(형식이 2번째 vs 3번째) 주의
+
+```python
+shutil.make_archive(BASE_DIR / "folder_zip", "zip", BASE_DIR / "zipme")
+shutil.unpack_archive(f"{BASE_DIR / 'folder_zip'}.zip", BASE_DIR / "extracted2", "zip")
+```
+
+- ! **주의**: `dir_to_zip`을 프로젝트 폴더 전체(`BASE_DIR`)로 지정하면, 그 폴더 안의 `.py` 파일들까지 전부 압축돼버림 — 압축 대상은 전용 폴더(예: `zipme/`)로 따로 분리하는 게 안전함
+
 ## SMTP로 이메일 보내기 (`smtp_python.py`)
 
 - **SMTP(Simple Mail Transfer Protocol)**: 이메일을 보낼 때 쓰는 표준 프로토콜. `smtplib`은 파이썬에서 이 프로토콜로 이메일을 코드로 직접 보낼 수 있게 해주는 표준 라이브러리
