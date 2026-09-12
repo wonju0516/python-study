@@ -7,11 +7,21 @@
   - 연결 리스트(Linked List) 기반으로 구현 가능: 중간 삽입/삭제 빠름 O(1), 인덱스 접근 느림 O(n)
 - **파이썬의 `list`**: 이 ADT를 실제로 구현한 결과물. 내부적으로 **동적 배열(dynamic array)** 방식이라, 인덱스 접근이 빠르고(O(1)), 여러 타입을 섞어 담을 수 있으며(이질적), 크기도 자동으로 늘어남(가변 길이)
 
+```python
+mixed = [1, "two", 3.0]   # * 타입 섞어서 담기 가능
+print(mixed[1])            # * 인덱스로 O(1) 접근 -> "two"
+```
+
 ## 정적 배열 vs 동적 배열
 
 - **정적 배열**: 생성할 때 크기를 고정해야 하고 이후 못 바꿈 (예: C의 `int arr[5]`)
 - **동적 배열**: 크기가 꽉 차면 더 큰 메모리 공간을 자동으로 잡고 기존 데이터를 복사해서 옮김. 파이썬 `list`가 이 방식
 - 참고: `array` 모듈은 파이썬에서 제공하는 진짜 "동질적(한 타입만)" 배열. 문자열은 담을 수 없고 숫자 타입(`"i"`=정수, `"f"`=단정도 실수, `"d"`=배정도 실수)만 가능. **주의: 파일 이름을 `array.py`로 지으면 `import array` 시 표준 라이브러리 대신 자기 자신을 불러오는 충돌이 발생하므로 피해야 함**
+
+```python
+from array import array
+nums = array("i", [1, 2, 3])  # * "i" = 정수만 담는 배열 -> 문자열 넣으면 TypeError
+```
 
 ## 선형 vs 비선형 자료구조
 
@@ -57,6 +67,13 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
 - `in` 연산이 리스트보다 빠름(평균 O(1) vs 리스트 O(n)) → 중복 확인, 존재 여부 확인에 적합
 - 집합 연산 가능: `a & b`(교집합), `a | b`(합집합), `a - b`(차집합), `.intersection()`(2개 이상 세트도 가능: `s1.intersection(s2, s3, s4)`)
 
+```python
+a, b = {1, 2, 3}, {2, 3, 4}
+print(a & b)   # {2, 3}       -> 교집합
+print(a | b)   # {1, 2, 3, 4} -> 합집합
+print(a - b)   # {1}          -> 차집합
+```
+
 ## 리스트 축약(List Comprehension)으로 교집합 구하기
 
 ```python
@@ -69,6 +86,17 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
 - `__init__(self, ...)`: 객체(인스턴스)를 만들 때 초기 데이터를 설정하고 속성을 부여하기 위해 사용, 객체 생성 시점에 자동 실행
 - `self`: 지금 만들어지는(다뤄지는) 그 객체 자기 자신을 가리키는 참조
 - `__str__(self)`: 객체를 사람이 읽기 좋은 문자열로 표현하기 위해 사용, `print()`/`str()` 호출 시점에 자동 실행 (없으면 `<__main__.클래스이름 object at 0x...>`가 기본 출력됨)
+
+```python
+class Dog:
+    def __init__(self, name):
+        self.name = name        # * self = 지금 만들어지는 이 객체 자신
+
+    def __str__(self):
+        return f"멍멍이 {self.name}"
+
+print(Dog("초코"))  # 멍멍이 초코 -> print()가 자동으로 __str__ 호출
+```
 
 ## 연결 리스트 (Linked List)
 
@@ -98,6 +126,13 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
 - **연결 리스트로 구현**: head만 갖고 있으면 뒤(tail) 삭제는 이전 노드를 못 찾아 무조건 O(n)(단일 연결리스트는 `prev`가 없음). push는 tail 포인터를 따로 두면 O(1)로도 가능하지만, pop이 tail에서 절대 O(1)이 안 되므로 push도 pop과 같은 쪽(head)에 맞춤
 - **실전 코딩테스트에서는** 클래스 없이 그냥 파이썬 `list`를 스택처럼 씀: `append()`(push), `pop()`(pop), `list[-1]`(peek), `not list`(is_empty) — `Stack`/`Node` 클래스 구현은 원리 학습용
 
+```python
+stack = []
+stack.append(1)   # * push
+stack.append(2)
+print(stack.pop())  # 2 -> 나중에 넣은 게 먼저 나옴(LIFO)
+```
+
 | 문제 | 핵심 아이디어 |
 |---|---|
 | 문자열 뒤집기 | 한 글자씩 push한 뒤 전부 pop하면, 나중에 넣은(마지막) 글자부터 나와서 자연히 뒤집힌 순서가 됨. 단, `[::-1]`이나 `"".join(reversed(s))`가 훨씬 간단함 |
@@ -113,6 +148,14 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
   - `enqueue`: 새 노드를 만들어 `rear.next`로 연결한 뒤, `rear` 이름표를 새 노드로 옮김 — 옮겨도 이전 노드들은 `front`부터 이어지는 체인에 그대로 남아있어 안 사라짐
   - `dequeue`: `front` 이름표를 다음 노드로 옮김 — 원래 `front`는 아무도 안 가리키게 되어 큐에서 빠짐. 마지막 노드까지 빠지면 `rear`도 같이 `None`으로 맞춰야 함
 - **파이썬 내장 큐**: `from queue import Queue` — `put()`(enqueue), `get()`(dequeue, FIFO 순서로 꺼냄)
+
+```python
+from collections import deque
+q = deque()
+q.append(1)     # * enqueue
+q.append(2)
+print(q.popleft())  # 1 -> 먼저 넣은 게 먼저 나옴(FIFO)
+```
 - **두 개의 스택으로 큐 만들기**: 스택(LIFO) 두 개를 조합해 큐(FIFO)를 흉내내는 문제
   - 매번 두 스택을 다 뒤집는 방식은 enqueue가 O(n)이 됨
   - **enqueue를 O(1)로**: `s1`엔 그냥 새 값을 쌓기만 함. `dequeue` 시점에 `s2`가 비어있을 때만 `s1`을 통째로 `s2`로 옮겨서(순서 뒤집힘) top이 front가 되게 함
@@ -126,6 +169,13 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
 - **해시 테이블**: 그 연관 배열을 실제로 구현하는 자료구조. 키를 **해시 함수**에 넣어 **해시값**(숫자)을 얻고, 그 값을 배열의 인덱스로 써서 저장/조회 → 평균 O(1)
 - **딕셔너리(`dict`)**: 파이썬이 해시 테이블 방식으로 연관 배열 ADT를 구현한 결과물 (`연관 배열` → `해시 테이블` → `dict` 순으로 개념이 구체화됨)
 - **해시 충돌**: 서로 다른 키인데 해시값이 같은 경우 발생. 체이닝(같은 자리에 연결 리스트로 여러 개 매달기) 또는 오픈 어드레싱(다른 빈 자리 찾기)으로 해결. 파이썬 `dict`는 오픈 어드레싱 방식
+
+```python
+counts = {}
+for ch in "hello":
+    counts[ch] = counts.get(ch, 0) + 1   # * 없으면 0에서 시작, 있으면 1씩 증가
+print(counts)  # {'h': 1, 'e': 1, 'l': 2, 'o': 1}
+```
 
 | 문제 | 핵심 아이디어 |
 |---|---|
@@ -153,6 +203,18 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
 - **서브트리(Subtree)**: 트리 안의 어떤 노드 하나 + 그 노드의 자손 전부를 떼어놓은 것. 자식이 없는 노드 하나만 있어도(크기 1) 서브트리로 인정됨. 트리 안 노드 개수만큼 서브트리가 존재함(각 노드가 자신을 루트로 하는 서브트리를 하나씩 가짐)
 - **이진 트리**: 각 노드가 자식을 최대 2개(왼쪽/오른쪽)만 가질 수 있음. 왼쪽/오른쪽에 어떤 값이 와야 하는지는 규칙이 없음
 - **이진 탐색 트리(BST)**: 이진 트리 + "왼쪽 자식은 항상 나보다 작고, 오른쪽 자식은 항상 나보다 크다"는 규칙 추가. 이 규칙 덕분에 비교 한 번마다 안 볼 절반을 통째로 버릴 수 있어 탐색이 O(log n)(단, 트리가 균형 잡혀있을 때만 — 한쪽으로 치우치면 최악 O(n))
+
+```python
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left_child = None
+        self.right_child = None
+
+root = BinaryTree(10)
+root.left_child = BinaryTree(5)   # * 왼쪽 자식 직접 조립
+root.right_child = BinaryTree(15)
+```
 - **DOM**: HTML 문서를 트리로 표현한 모델. 태그의 중첩 관계가 그대로 부모-자식 관계가 됨
 - **insert_left/insert_right**: 일반 이진 트리는 "어디에 넣어야 하는지" 규칙이 없어서, 이미 자식이 있는 자리에 삽입하면 새 노드를 그 사이에 끼우고 원래 있던 서브트리는 한 단계 밀어냄(데이터 유실 방지). 실전에서는 보통 이런 메서드 없이 트리 모양을 알고 있는 상태에서 `.left_child = BinaryTree(값)`처럼 직접 조립함
 - **DFS(깊이 우선 탐색)**: 한쪽으로 끝까지 파고들었다가 막히면 되돌아와서 다른 방향 시도. 보통 재귀로 구현. 백트래킹(선택 시도 → 안 되면 되돌아가기)이 트리에서 자주 쓰이는 이유도 이 구조와 똑같기 때문
@@ -174,6 +236,13 @@ list(zip(movie_list, ratings_list))  # 두 리스트를 튜플 쌍으로 묶은 
 - BST와 달리 **위-아래(부모-자식) 관계만** 규칙이 있고, 좌우(형제) 관계는 순서 상관없음
 - 삽입/삭제 모두 트리 높이만큼만 움직이면 돼서 O(log n), 루트(최솟값/최댓값) 확인은 O(1)
 - **키(key)와 우선순위(priority)**: 원래는 별개 개념(우선순위 큐에서 "얼마나 급한지"를 나타내는 값)이지만, 키 자체가 숫자/문자처럼 산술적으로 비교 가능하면 그 값을 그대로 우선순위로 사용 가능. 비교 불가능한 객체를 저장할 땐 별도의 우선순위 필드를 따로 둬야 함
+
+```python
+heap = [1, 3, 5, 7, 9]
+i = 1
+print(heap[(i - 1) // 2])  # heap[0] = 1 -> 부모
+print(heap[2 * i + 1])     # heap[3] = 7 -> 왼쪽 자식
+```
 
 ### `heapq` 모듈 (파이썬 내장, 최소 힙 전용)
 
@@ -247,6 +316,12 @@ def is_min_heap(tree):
 | 인접 리스트(Adjacency List) | 각 노드가 자기와 연결된 노드 목록을 직접 들고 있음. 실무에서 가장 흔하게 쓰임 |
 | 인접 행렬(Adjacency Matrix) | 노드 × 노드 크기의 2차원 배열로 연결 여부(또는 가중치)를 표시 |
 
+```python
+edge_list = [("A", "B"), ("A", "C")]                      # * 에지 리스트
+adjacency_list = {"A": ["B", "C"], "B": ["A"], "C": ["A"]}  # * 인접 리스트
+adjacency_matrix = [[0, 1, 1], [1, 0, 0], [1, 0, 0]]        # * 인접 행렬 (A,B,C 순서)
+```
+
 ### 인접 리스트의 시간복잡도
 
 | 연산 | 시간복잡도 | 이유 |
@@ -276,6 +351,14 @@ def is_min_heap(tree):
   - `get_vertex(key)`: 이름으로 등록된 `Vertex` 객체를 찾아 반환 (없으면 `None`)
   - `add_edge(f, t, weight)`: f, t가 없으면 자동으로 만든 뒤, f의 `Vertex` 객체에게 `add_adj()`를 호출해 t와 연결시킴 — **f의 `connections`에만 저장되는 한쪽 방향**이라 무방향으로 쓰려면 반대 방향도 한 번 더 호출해야 함
 - 실제 "연결 정보"는 `Graph`가 아니라 **각 `Vertex` 객체가 개별적으로** 들고 있음 — `Graph`는 그 `Vertex`들을 찾아주고 연결을 시켜주는 관리자 역할만 함
+
+```python
+g = Graph()
+g.add_edge("A", "B", 5)   # * A, B가 없으면 자동 생성 후 A->B를 가중치 5로 연결
+a = g.get_vertex("A")
+for neighbor in a.get_connections():
+    print(neighbor.key, a.get_weight(neighbor))  # B 5
+```
 
 ## 다익스트라(Dijkstra) 알고리즘
 
