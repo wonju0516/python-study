@@ -20,7 +20,9 @@ class Car(ABC):  # * class Car(ABC) -> Car가 ABC를 상속받음 -> Car도 추�
 
 
 class Tesla(Car):  # * Tesla가 Car를 상속받음 (Car의 start_engine을 그대로 물려받음)
-    def turn_off_engine(self):  # * 추상 메서드를 실제로 구현 -> 이제 Tesla는 완성된 클래스
+    def turn_off_engine(
+        self,
+    ):  # * 추상 메서드를 실제로 구현 -> 이제 Tesla는 완성된 클래스
         print("turning off...")
 
 
@@ -35,7 +37,9 @@ t.turn_off_engine()
 from typing import Protocol
 
 
-class Item(Protocol):  # * "quantity와 price라는 속성을 가진 것"이라는 모양만 정의 (실제 동작 없음)
+class Item(
+    Protocol
+):  # * "quantity와 price라는 속성을 가진 것"이라는 모양만 정의 (실제 동작 없음)
     quantity: float
     price: float
 
@@ -59,11 +63,9 @@ def calculate_total(items: list[Item]) -> float:
     return sum([item.quantity * item.price for item in items])
 
 
-# * calculate total a product list
-# * Product와 Stock은 서로 다른 클래스지만 둘 다 quantity*price 계산이 가능해서 같은 함수에 섞어서 넣을 수 있음
 total = calculate_total([Product("A", 10, 150), Stock("B", 5, 250)])
 
-print(total)  # * 10*150 + 5*250 = 1500 + 1250 = 2750
+print(total)
 
 # * 덕 타이핑(duck typing): "오리처럼 걷고 오리처럼 운다면 그건 오리다" -> 상속 관계와 상관없이
 # * 필요한 속성/메서드만 가지고 있으면 그 타입으로 취급하는 파이썬의 방식 (Protocol이 이걸 타입힌트로 표현한 것)
