@@ -19,7 +19,8 @@ firstPython/
     ├── python_internals/       # → python_basics/python_internals/README.md
     ├── oop/                    # → python_basics/oop/README.md
     ├── file_data_processing/   # → python_basics/file_data_processing/README.md
-    └── python_features/        # → python_basics/python_features/README.md
+    ├── python_features/        # → python_basics/python_features/README.md
+    └── dev_tools/              # → python_basics/dev_tools/README.md
 ```
 
 ## 폴더별 정리
@@ -32,3 +33,4 @@ firstPython/
 - [python_basics/oop/](firstPython/python_basics/oop/README.md) — 클래스/객체/메소드 기초, turtle 라이브러리, naming convention, 생성자(__init__), 외부 패키지(PrettyTable) 활용, list/dict/set/tuple 내장 자료형 비교, 고차함수와 데코레이터, 상속·오버라이딩·super()·메소드 탐색 순서
 - [python_basics/file_data_processing/](firstPython/python_basics/file_data_processing/README.md) — 파일 열기/닫기, with문과 메모리 관리, 모드(r/w/a/x/r+/b), 실행 위치에 따른 상대경로 문제와 pathlib 해결법, csv 모듈, pandas DataFrame/Series와 자주 쓰는 메소드, list/dictionary comprehension, 함수 인자 심화(기본값·*args·**kwargs), 동적/정적/강한 타이핑, 예외 처리(try-except-else-finally, 커스텀 에러)
 - python_basics/python_features/ — json, datetime, static method, map/filter/lambda, magic method, generator, collections, zip, ABC, enum, metaclass, 인자 언팩, pprint, walrus operator 등 (작성 중)
+- [python_basics/dev_tools/](firstPython/python_basics/dev_tools/README.md) — pylint, unittest, timeit, pdb, 정규표현식, virtualenv, f-string, pypi, uv 등 (작성 중)
