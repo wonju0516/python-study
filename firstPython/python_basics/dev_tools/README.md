@@ -202,3 +202,31 @@ which python                    # * 가상환경 안 python의 실제 경로 확
     ```bash
     ~/.pyenv/versions/3.11.0/bin/python3 -m venv test_venv  # * 3.11.0 버전으로 가상환경 생성 (먼저 pyenv install 3.11.0 필요)
     ```
+- **`venv` vs `virtualenv` vs `uv`**: `venv`는 표준 라이브러리라 설치 없이 바로 사용 가능 (개인 학습/대부분의 프로젝트엔 이걸로 충분). `virtualenv`는 pip로 따로 설치해야 하는 서드파티 패키지로, `venv`보다 빠르고 옵션이 많음 (레거시 프로젝트에서 종종 사용). `uv`는 Rust로 만들어져 훨씬 빠르고 패키지 설치+가상환경 관리를 한 번에 처리하는 최신 도구 (최근 새 프로젝트에서 많이 채택)
+
+## pip
+
+- 파이썬 **패키지 설치/관리 도구**
+
+```bash
+pip install pandas          # * 패키지 하나 설치
+pip freeze                  # * 현재 환경에 설치된 패키지 목록을 버전까지 포함해서 출력 (pandas==3.0.5 형태)
+pip install -r requirements.txt  # * requirements.txt에 적힌 패키지들을 한 번에 전부 설치
+```
+
+- **`requirements.txt`**: "이 프로젝트를 실행하려면 이 패키지들, 이 버전으로 깔아야 함"을 적어둔 파일 — 다른 사람/다른 컴퓨터에서 내 개발 환경을 그대로 재현할 수 있게 공유하는 용도
+- 흐름: 개발하며 패키지 설치 → `pip freeze > requirements.txt`(지금 설치 상태를 파일로 저장) → 다른 사람은 가상환경 만들고 `pip install -r requirements.txt` 한 방으로 동일한 패키지/버전 설치
+
+### requirements.txt 형식
+
+한 줄에 패키지 하나씩, `pip freeze`가 만들어주는 형태 그대로 저장하면 됨:
+
+```
+pandas==3.0.5
+numpy==2.1.0
+requests>=2.31.0
+```
+
+- `패키지명==버전`: **정확히 이 버전**만 설치 (가장 흔한 형태, 재현성이 가장 확실함)
+- `패키지명>=버전`: 이 버전 **이상**이면 설치 허용 (조금 더 유연하게 쓰고 싶을 때)
+- 버전 없이 `패키지명`만 쓰면 그냥 최신 버전 설치 (재현성은 떨어짐)
