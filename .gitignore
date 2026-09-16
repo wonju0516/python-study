@@ -1,6 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
+*.log
 .vscode/*.log
 tempCodeRunnerFile*
 CLAUDE.md
