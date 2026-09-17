@@ -284,6 +284,56 @@ model3 = Car("Tesla", "Model 3")  # * __init__ 없이도 바로 생성 가능
 print(f"{model3}")  # * Tesla has Model 3
 ```
 
+## dataclass 심화 (`dataclass_py.py`)
+
+### frozen / order
+
+```python
+@dataclass(frozen=True, order=True)
+class Car:
+    id: int
+    color: str = ""
+    brand: str = ""
+```
+
+- **`frozen`**: 한번 만들면 값을 못 바꾸게 고정(불변). `car1.color = "Red"`처럼 수정하려 하면 에러남
+- **`order`**: `<`, `>` 같은 비교 연산자를 쓸 수 있게 해줌 (필드 순서대로 비교)
+
+### 자동 생성되는 함수들 확인하기
+
+```python
+import inspect
+pprint(inspect.getmembers(Car, inspect.isfunction))  # * 클래스 안에 있는 함수 목록 출력
+```
+- `inspect.getmembers(대상, 필터함수)`: 대상의 멤버 중 필터를 통과하는 것만 뽑음
+- `inspect.isfunction`: "이게 함수냐?"를 판별하는 필터 → `__init__`, `__eq__`, `__lt__` 등 `@dataclass`가 자동 생성한 메소드들이 쭉 나옴
+
+### 변환 / 복사
+
+```python
+print(astuple(car1))          # * 튜플로 변환 -> (1, 'White', 'TESLA')
+print(asdict(car1))           # * 딕셔너리로 변환 -> {'id': 1, 'color': 'White', 'brand': 'TESLA'}
+print(replace(car1, id=3))    # * 불변 객체는 직접 수정 불가 -> 일부 필드만 바뀐 새 복사본 생성
+```
+
+### 중첩 (다른 dataclass를 필드로 담기)
+
+```python
+@dataclass
+class Inventory:
+    cars: list[Car]  # * dataclass 필드에 다른 dataclass 객체들도 담을 수 있음
+```
+
+### 상속
+
+```python
+@dataclass(frozen=True)  # ! 부모(Car)가 frozen이면 자식도 frozen이어야 함 (안 그러면 TypeError)
+class Taxi(Car):
+    owner_company: str = ""  # * 부모에 없던 필드를 자식에서 추가
+```
+- 상속 = 부모 클래스의 필드를 그대로 물려받고, 자식에서 필드를 추가로 붙일 수 있음
+- 공통 필드(id/color/brand)는 부모(`Car`)에 두고, 자식만의 특징(`owner_company`)만 추가하는 게 전형적인 상속 사용 예
+
 ## pip
 
 - 파이썬 **패키지 설치/관리 도구**
