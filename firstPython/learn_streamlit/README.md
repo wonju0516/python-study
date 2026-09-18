@@ -35,6 +35,13 @@ requests
 
 ## 지금까지 한 것
 
+### Windows
+
+- `python -m venv .venv`로 가상환경 생성 (pyenv 전역 버전인 3.14.7 기준으로 생성됨)
+- `.venv\Scripts\Activate.ps1`로 활성화 -> 터미널 앞에 `(.venv)` 표시 확인
+
+### Mac
+
 - `python3 -m venv venv`로 가상환경 생성 (pyenv 전역 버전인 3.14.7 기준으로 생성됨)
 - `source venv/bin/activate`로 활성화
 - `requirements.txt` 작성 후 `pip install -r requirements.txt`로 `streamlit`/`pandas`/`numpy`/`requests` 설치
