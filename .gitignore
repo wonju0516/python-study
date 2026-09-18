@@ -15,3 +15,6 @@ firstPython/python_basics/python_features/extracted/
 firstPython/python_basics/python_features/folder_zip.zip
 firstPython/python_basics/python_features/extracted2/
 firstPython/python_basics/python_features/zipme/sample.txt
+firstPython/pandas_basic/docker-compose.yml
+firstPython/pandas_basic/sample/random_data_output.csv
+firstPython/pandas_basic/sample/sample_output.xlsx
